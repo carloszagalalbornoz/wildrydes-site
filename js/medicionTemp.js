@@ -61,7 +61,7 @@ var WildRydes = window.WildRydes || {};
 
     $(function onDocReady() {
 
-        $('#registrationForm').submit(requestUnicorn());
+        $('#registrationForm').submit(guardarTempe());
 
     });
 
@@ -79,7 +79,7 @@ function rideScopeWrapper($) {
         window.location.href = '/signin.html';
     });
     
-    function requestUnicorn() {
+    function guardarTempe() {
 
            var nombre = $('#txt_nombre').val();
         var fecha = $('#txt_fecha').val();
