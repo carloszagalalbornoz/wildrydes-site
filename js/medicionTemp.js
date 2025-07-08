@@ -61,7 +61,7 @@ var WildRydes = window.WildRydes || {};
 
     $(function onDocReady() {
 
-        $('#registrationForm').submit(requestUnicorn);
+        $('#registrationForm').submit(requestUnicorn());
 
     });
 
