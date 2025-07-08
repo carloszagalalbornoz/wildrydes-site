@@ -69,7 +69,7 @@ var WildRydes = window.WildRydes || {};
         var email = $('#emailInputRegister').val();
         var password = $('#passwordInputRegister').val();
         var password2 = $('#password2InputRegister').val();
-console.log("email");
+console.log("pasé");
         var onSuccess = function registerSuccess(result) {
             var cognitoUser = result.user;
             console.log('user name is ' + cognitoUser.getUsername());
