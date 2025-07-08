@@ -66,10 +66,10 @@ var WildRydes = window.WildRydes || {};
     });
 
     function handleRegister(event) {
-        var email = $('#emailInputRegister').val();
-        var password = $('#passwordInputRegister').val();
-        var password2 = $('#password2InputRegister').val();
-console.log("pasé");
+        var nombre = $('#txt_nombre').val();
+        var fecha = $('#txt_fecha').val();
+        var temp = $('#txt_temperatura').val();
+console.log(nombre);
         var onSuccess = function registerSuccess(result) {
             var cognitoUser = result.user;
             console.log('user name is ' + cognitoUser.getUsername());
