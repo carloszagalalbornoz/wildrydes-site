@@ -61,33 +61,55 @@ var WildRydes = window.WildRydes || {};
 
     $(function onDocReady() {
 
-        $('#registrationForm').submit(handleRegister);
+        $('#registrationForm').submit(requestUnicorn);
 
     });
 
-    function handleRegister(event) {
-        var nombre = $('#txt_nombre').val();
+
+function rideScopeWrapper($) {
+    var authToken;
+    WildRydes.authToken.then(function setAuthToken(token) {
+        if (token) {
+            authToken = token;
+        } else {
+            window.location.href = '/signin.html';
+        }
+    }).catch(function handleTokenError(error) {
+        alert(error);
+        window.location.href = '/signin.html';
+    });
+    
+    function requestUnicorn() {
+
+           var nombre = $('#txt_nombre').val();
         var fecha = $('#txt_fecha').val();
         var temp = $('#txt_temperatura').val();
-console.log(nombre);
-        var onSuccess = function registerSuccess(result) {
-            var cognitoUser = result.user;
-            console.log('user name is ' + cognitoUser.getUsername());
-            var confirmation = ('Registration successful. Please check your email inbox or spam folder for your verification code.');
-            if (confirmation) {
-                window.location.href = 'verify.html';
+        
+        $.ajax({
+            method: 'POST',
+            url: _config.api.invokeUrl + '/ride',
+            headers: {
+                Authorization: authToken
+            },
+            data: JSON.stringify({
+                PickupLocation: {
+                    Latitude: pickupLocation.latitude,
+                    Longitude: pickupLocation.longitude
+                }
+            }),
+            contentType: 'application/json',
+            success: completeRequest,
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
             }
-        };
-        var onFailure = function registerFailure(err) {
-            alert(err);
-        };
-        event.preventDefault();
-
-        if (password === password2) {
-            register(email, password, onSuccess, onFailure);
-        } else {
-            alert('Passwords do not match');
-        }
+        });
     }
 
+
+}
+
+    
+  
 }(jQuery));
